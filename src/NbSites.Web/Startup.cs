@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NbSites.Web.Boots;
+using NbSites.Web.Libs.PlaySounds;
 
 namespace NbSites.Web
 {
@@ -20,6 +21,11 @@ namespace NbSites.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IPlaySoundFileRepository, PlaySoundFileRepository>();
+            services.AddSingleton<ISoundPlayer, SoundPlayer>();
+            services.AddSingleton<ServerPathHelper>();
+            services.AddTransient<PlaySoundAppService>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

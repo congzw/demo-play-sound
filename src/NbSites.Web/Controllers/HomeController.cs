@@ -1,7 +1,6 @@
-﻿using System.Diagnostics;
-using System.IO;
-using Microsoft.AspNetCore.Hosting;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NbSites.Web.Libs.PlaySounds;
 
 namespace NbSites.Web.Controllers
 {
@@ -12,24 +11,31 @@ namespace NbSites.Web.Controllers
             return View();
         }
 
-        public IActionResult Play([FromServices] IHostingEnvironment env)
+        /// <summary>
+        /// only for test
+        /// </summary>
+        /// <param name="playSoundAppService"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<IActionResult> GetPlay([FromServices] PlaySoundAppService playSoundAppService, [FromQuery] string id)
         {
-            var filePath = Path.Combine(env.WebRootPath, "content", "sounds", "Alarm002.wav");
-            if (!System.IO.File.Exists(filePath))
-            {
-                ViewBag.Message = "FileNotExist:" + filePath;
-            }
-            else
-            {
-                ViewBag.Message = "PlaySound:" + filePath;
-                PlaySound(filePath);
-            }
+            var messageResult = await playSoundAppService.Play(id, true);
+            ViewBag.Message = messageResult.Message;
             return View("Index");
         }
 
-        private static void PlaySound(string file)
+        /// <summary>
+        /// 播放声音
+        /// </summary>
+        /// <param name="playSoundAppService"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> Play([FromServices] PlaySoundAppService playSoundAppService, [FromQuery]string id)
         {
-            Process.Start(@"powershell", $@"-c (New-Object Media.SoundPlayer '{file}').PlaySync();");
+            var messageResult = await playSoundAppService.Play(id, true);
+            ViewBag.Message = messageResult.Message;
+            return View("Index");
         }
     }
 }
