@@ -17,10 +17,10 @@ namespace NbSites.Web.Controllers
         /// <param name="playSoundAppService"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<IActionResult> GetPlay([FromServices] PlaySoundAppService playSoundAppService, [FromQuery] string id)
+        public async Task<IActionResult> GetPlay([FromServices] PlaySoundAppService playSoundAppService, string id)
         {
             var messageResult = await playSoundAppService.Play(id, true);
-            ViewBag.Message = messageResult.Message;
+            ViewBag.MessageResult = messageResult;
             return View("Index");
         }
 
@@ -31,10 +31,10 @@ namespace NbSites.Web.Controllers
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Play([FromServices] PlaySoundAppService playSoundAppService, [FromQuery]string id)
+        public async Task<IActionResult> Play([FromServices] PlaySoundAppService playSoundAppService, string id)
         {
             var messageResult = await playSoundAppService.Play(id, true);
-            ViewBag.Message = messageResult.Message;
+            ViewBag.MessageResult = messageResult;
             return View("Index");
         }
     }
