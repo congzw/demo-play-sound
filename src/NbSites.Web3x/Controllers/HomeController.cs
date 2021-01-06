@@ -1,5 +1,4 @@
-﻿using System.Speech.Synthesis;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Common;
 using Microsoft.AspNetCore.Mvc;
 using NbSites.Web.Libs.PlaySounds;
@@ -11,10 +10,6 @@ namespace NbSites.Web.Controllers
     {
         public IActionResult Index()
         {
-            var speaker = new SpeechSynthesizer();
-            speaker.Rate = 1;
-            speaker.Volume = 100;
-            speaker.Speak("Hello world.");
             return View();
         }
 
