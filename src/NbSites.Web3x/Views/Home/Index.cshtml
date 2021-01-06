@@ -1,0 +1,13 @@
+﻿@using Common
+@{
+    var messageResult = ViewBag.MessageResult as MessageResult;
+}
+
+<h2>@this.Path</h2>
+<hr />
+@if (messageResult != null)
+{
+    <p>@messageResult.Message</p>
+    <p>@messageResult.Data</p>
+    <p>@messageResult.Success</p>
+}
