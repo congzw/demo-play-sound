@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 using CommandLine;
+using NAudio.Wave;
+using SoundPlayer.NAudios;
 
 namespace SoundPlayer
 {
@@ -23,7 +25,9 @@ namespace SoundPlayer
                     return;
                 }
 
-                PlaySound(o.File);
+                NAudioDemo.Test3();
+
+                //PlaySound(o.File);
             });
         }
         

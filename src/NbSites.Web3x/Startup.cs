@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NbSites.Web.Libs.PlaySounds;
+using NbSites.Web.Libs.TextSpeech;
 
 namespace NbSites.Web
 {
@@ -13,6 +14,8 @@ namespace NbSites.Web
         {
             services.AddSingleton<IPlaySoundFileRepository, PlaySoundFileRepository>();
             services.AddSingleton<ISoundPlayer, SoundPlayer>();
+            services.AddSingleton<ITextSpeaker, TextSpeaker>();
+            
             services.AddSingleton<ServerPathHelper>();
             services.AddTransient<PlaySoundAppService>();
 

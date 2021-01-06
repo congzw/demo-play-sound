@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Speech.Synthesis;
+using System.Threading.Tasks;
+using Common;
 using Microsoft.AspNetCore.Mvc;
 using NbSites.Web.Libs.PlaySounds;
+using NbSites.Web.Libs.TextSpeech;
 
 namespace NbSites.Web.Controllers
 {
@@ -8,6 +11,10 @@ namespace NbSites.Web.Controllers
     {
         public IActionResult Index()
         {
+            var speaker = new SpeechSynthesizer();
+            speaker.Rate = 1;
+            speaker.Volume = 100;
+            speaker.Speak("Hello world.");
             return View();
         }
 
@@ -23,7 +30,7 @@ namespace NbSites.Web.Controllers
             ViewBag.MessageResult = messageResult;
             return View("Index");
         }
-
+        
         /// <summary>
         /// 播放声音
         /// </summary>
@@ -36,6 +43,23 @@ namespace NbSites.Web.Controllers
             var messageResult = await playSoundAppService.Play(id, true);
             ViewBag.MessageResult = messageResult;
             return View("Index");
+        }
+
+
+        public async Task<IActionResult> GetSpeak([FromServices] ITextSpeaker textSpeaker, string id)
+        {
+            //todo: id to text
+            await textSpeaker.Speak(id);
+            ViewBag.MessageResult = id;
+            return View("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Speak([FromServices] ITextSpeaker textSpeaker, string id)
+        {
+            //todo: id to text
+            await textSpeaker.Speak(id);
+            return Json(MessageResult.SuccessResult("OK", id));
         }
     }
 }

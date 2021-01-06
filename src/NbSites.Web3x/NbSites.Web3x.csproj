@@ -5,4 +5,10 @@
     <RootNamespace>NbSites.Web</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Speech">
+      <HintPath>..\libs\System.Speech.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
