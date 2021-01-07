@@ -13,7 +13,8 @@ namespace NbSites.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IPlaySoundFileRepository, PlaySoundFileRepository>();
-            services.AddSingleton<ISoundPlayer, SoundPlayer>();
+            //services.AddSingleton<ISoundPlayer, MediaSoundPlayer>();
+            services.AddSingleton<ISoundPlayer, NAudioSoundPlayer>();
             services.AddSingleton<ITextSpeaker, TextSpeaker>();
             
             services.AddSingleton<ServerPathHelper>();

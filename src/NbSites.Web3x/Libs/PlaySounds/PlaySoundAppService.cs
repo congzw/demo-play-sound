@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Common;
+using NbSites.Web.Libs.TextSpeech;
 
 namespace NbSites.Web.Libs.PlaySounds
 {
@@ -11,17 +12,20 @@ namespace NbSites.Web.Libs.PlaySounds
         private readonly IPlaySoundFileRepository _repository;
         private readonly ServerPathHelper _serverPathHelper;
         private readonly ISoundPlayer _soundPlayer;
+        private readonly ITextSpeaker _textSpeaker;
 
-        public PlaySoundAppService(IPlaySoundFileRepository repository, ServerPathHelper serverPathHelper, ISoundPlayer soundPlayer)
+        public PlaySoundAppService(IPlaySoundFileRepository repository, ServerPathHelper serverPathHelper, ISoundPlayer soundPlayer, ITextSpeaker textSpeaker)
         {
             _repository = repository;
             _serverPathHelper = serverPathHelper;
             _soundPlayer = soundPlayer;
+            _textSpeaker = textSpeaker;
         }
         
         public Task<MessageResult> Play(string soundId, bool playDefaultIfNotExist)
         {
             var playSoundFile = GetPlaySoundFile(soundId, playDefaultIfNotExist);
+            _textSpeaker.Speak(playSoundFile.Description);
             var filePath = MapContentRootPath(playSoundFile.FilePath);
             return PlayFile(filePath);
         }

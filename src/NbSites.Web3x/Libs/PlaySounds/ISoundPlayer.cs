@@ -7,14 +7,15 @@ namespace NbSites.Web.Libs.PlaySounds
         Task Play(string file);
     }
 
-    public class SoundPlayer : ISoundPlayer
+    public class MediaSoundPlayer : ISoundPlayer
     {
         public Task Play(string file)
         {
             //System.Media.SystemSounds.Beep.Play();
-
-            var player = new System.Media.SoundPlayer();
-            player.SoundLocation = file;
+            var player = new System.Media.SoundPlayer
+            {
+                SoundLocation = file
+            };
             player.Load(); //同步加载声音
             player.Play(); //启用新线程播放
 
